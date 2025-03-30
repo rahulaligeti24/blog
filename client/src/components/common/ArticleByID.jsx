@@ -31,7 +31,7 @@ function ArticleByID() {
       `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
 
     let res = await axios.put(
-      `http://localhost:3000/author-api/article/${articleAfterChanges.articleId}`,
+      `https://blog-v9w3.onrender.com/author-api/article/${articleAfterChanges.articleId}`,
       articleAfterChanges,
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -45,7 +45,7 @@ function ArticleByID() {
   // Delete article (soft delete)
   async function deleteArticle() {
     state.isArticleActive = false;
-    let res = await axios.put(`http://localhost:3000/author-api/articles/${state.articleId}`, state);
+    let res = await axios.put(`https://blog-v9w3.onrender.com/author-api/articles/${state.articleId}`, state);
     if (res.data.message === 'article deleted or restored') {
       setCurrentArticle(res.data.payload);
     }
@@ -54,7 +54,7 @@ function ArticleByID() {
   // Restore deleted article
   async function restoreArticle() {
     state.isArticleActive = true;
-    let res = await axios.put(`http://localhost:3000/author-api/articles/${state.articleId}`, state);
+    let res = await axios.put(`https://blog-v9w3.onrender.com/author-api/articles/${state.articleId}`, state);
     if (res.data.message === 'article deleted or restored') {
       setCurrentArticle(res.data.payload);
     }
@@ -65,7 +65,7 @@ function ArticleByID() {
     try {
       commentObj.nameOfUser = currentUser.firstName;
       const res = await axios.put(
-        `http://localhost:3000/user-api/comment/${currentArticle.articleId}`,
+        `https://blog-v9w3.onrender.com/user-api/comment/${currentArticle.articleId}`,
         commentObj
       );
 

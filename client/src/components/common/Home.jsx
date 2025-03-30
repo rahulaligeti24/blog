@@ -22,7 +22,7 @@ function Home() {
     let res = null;
     try {
       if (selectedRole === 'author') {
-        res = await axios.post('http://localhost:3000/author-api/author', currentUser)
+        res = await axios.post('https://blog-v9w3.onrender.com/author-api/author', currentUser)
         let { message, payload } = res.data;
         if (message === 'author') {
           // Check if author is active
@@ -42,7 +42,7 @@ function Home() {
       }
       
       if (selectedRole === 'user') {
-        res = await axios.post('http://localhost:3000/user-api/user', currentUser)
+        res = await axios.post('https://blog-v9w3.onrender.com/user-api/user', currentUser)
         let { message, payload } = res.data;
         if (message === 'user') {
           // Check if user is active
@@ -62,7 +62,7 @@ function Home() {
       }
       
       if(selectedRole === 'admin'){
-        res = await axios.post('http://localhost:3000/admin-api/admin', currentUser)
+        res = await axios.post('https://blog-v9w3.onrender.com/admin-api/admin', currentUser)
         let {message, payload} = res.data;
         
         if(message === "admin"){
@@ -89,7 +89,7 @@ function Home() {
         const parsedUser = JSON.parse(savedUser);
         // Refresh user status from server to get latest isActive status
         if (parsedUser.role) {
-          axios.get(`http://localhost:3000/${parsedUser.role}-api/${parsedUser.role}/${parsedUser.email}`)
+          axios.get(`https://blog-v9w3.onrender.com/${parsedUser.role}-api/${parsedUser.role}/${parsedUser.email}`)
             .then(response => {
               const { payload } = response.data;
               if (payload && payload.isActive !== undefined) {

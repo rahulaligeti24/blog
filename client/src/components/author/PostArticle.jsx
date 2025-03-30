@@ -37,7 +37,7 @@ function PostArticle() {
 
     // Make API request with error handling
     try {
-      let res = await axios.post("http://localhost:3000/author-api/article", articleObj);
+      let res = await axios.post("https://blog-v9w3.onrender.com/author-api/article", articleObj);
       if (res.status === 201) {
         navigate(`/author-profile/${currentUser.email}/articles`);
       }

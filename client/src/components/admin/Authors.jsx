@@ -15,7 +15,7 @@ function Authors() {
     try {
       const token = await getToken();
       const res = await axios.get(
-        `http://localhost:3000/admin-api/authors?email=${user.primaryEmailAddress.emailAddress}`,
+        `https://blog-v9w3.onrender.com/admin-api/authors?email=${user.primaryEmailAddress.emailAddress}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ function Authors() {
       const token = await getToken();
 
       await axios.put(
-        `http://localhost:3000/admin-api/update-status/${email}`,
+        `https://blog-v9w3.onrender.com/admin-api/update-status/${email}`,
         {
           isActive,
           adminEmail: user.primaryEmailAddress.emailAddress,
