@@ -1,0 +1,347 @@
+.navbar {
+  background-color: #121212;
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f0c14b;
+  --text-light: #ffffff;
+  --text-dark: #121212;
+  --bg-dark: #121212;
+  --bg-light: #ffffff;
+  --bg-darker: #0a0a0a;
+  --card-bg: #1a1a1a;
+  --card-hover: #2a2a2a;
+  --transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-icon {
+  color: #f0c14b;
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.brand-text {
+  font-size: 2rem;
+  font-weight: 700;
+  /* background: linear-gradient(90deg, #f0c14b, #ffffff); */
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 0.5px;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav-item {
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.sign-in-btn {
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius:13px;
+  border: 0.5px solid #4a90e2;
+}
+
+.sign-up-btn {
+  background-color: #4a90e2;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius:13px;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.sign-in-btn:hover {
+  background-color: #3a80d2;
+  transform: translateY(-2px);
+}
+
+.sign-up-btn:hover {
+  background-color: #3a80d2;
+  transform: translateY(-2px);
+}
+
+.about-btn {
+  color:white;
+  padding: 0.5rem 1rem;
+  border-radius: 13px;
+  border:0.5px solid #4a90e2;
+}
+
+.user-profile-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-role-badge {
+  background-color: #4a90e2;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  font-weight: 500;
+}
+
+.profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4a90e2;
+}
+
+.default-avatar {
+  color: #4a90e2;
+  font-size: 1.5rem;
+}
+
+.sign-out-btn {
+  background: none;
+  border: none;
+  color: #ff5252;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.sign-out-btn:hover {
+  background-color: rgba(255, 82, 82, 0.1);
+}
+
+.navbar-toggler {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.hamburger-icon {
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+
+.navbar-collapse {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+    background-color: #121212; /* Ensure background persists */
+  }
+  
+  .navbar-toggler {
+    display: block;
+  }
+  
+  .navbar-collapse {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #121212;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  
+  .navbar-collapse.show {
+    display: flex;
+  }
+  
+  .auth-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+    
+  }
+  
+  .auth-buttons .nav-item {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  /* Fix for buttons in mobile view */
+  .sign-in-btn {
+    border: 2px solid #4a90e2 !important;
+    display: block;
+    border-radius: 25px;
+    margin: 0.25rem 0;
+  }
+  
+  .sign-up-btn {
+    background-color: #4a90e2 !important;
+    color: white !important;
+    display: block;
+    margin: 0.25rem 0;
+    border: none !important;
+    border-radius: 25px;
+  }
+  
+  .about-btn {
+    border: 2px solid #4a90e2 !important;
+    display: block;
+    margin: 0.25rem 0;
+  }
+  
+  .user-profile-nav {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .user-info {
+    margin-bottom: 0.5rem;
+    justify-content: center;
+  }
+  
+  .user-role-badge {
+    background-color: #4a90e2 !important;
+  }
+  
+  .profile-image {
+    border: 2px solid #4a90e2 !important;
+  }
+  
+  .sign-out-btn {
+    justify-content: center;
+    width: 100%;
+    color: #ff5252 !important;
+  }
+  
+  .sign-out-btn:hover {
+    background-color: rgba(255, 82, 82, 0.1) !important;
+  }
+}
+
+
+
+/* Targeted CSS fixes for mobile view */
+
+/* Ensure navbar always has its background */
+.navbar {
+  background-color: #121212 !important;
+}
+
+/* Fix for buttons in mobile view */
+@media (max-width: 768px) {
+  /* Fix sign-in button */
+  .sign-in-btn {
+    color: #ffffff !important;
+    border: 2px solid #4a90e2 !important;
+    background-color: transparent !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Fix sign-up button */
+  .sign-up-btn {
+    background-color: #4a90e2 !important;
+    color: #ffffff !important;
+    border: none !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Fix about button */
+  .about-btn {
+    color: #ffffff !important;
+    border: 2px solid #4a90e2 !important;
+    background-color: transparent !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  /* Fix author dashboard button if present */
+  .author-dashboard-btn {
+    color: #ffffff !important;
+    border: 2px solid #f0c14b !important;
+    background-color: transparent !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0.5rem 0 !important;
+    text-align: center !important;
+  }
+  
+  /* Fix navbar collapse */
+  .navbar-collapse.show {
+    display: flex !important;
+    background-color: #121212 !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Fix user badge */
+  .user-role-badge {
+    background-color: #4a90e2 !important;
+    color: white !important;
+  }
+  
+  /* Fix profile image */
+  .profile-image {
+    border: 2px solid #4a90e2 !important;
+  }
+  
+  /* Fix sign-out button */
+  .sign-out-btn {
+    color: #ff5252 !important;
+    border: 1px solid rgba(255, 82, 82, 0.3) !important;
+    background-color: rgba(255, 82, 82, 0.05) !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  .sign-out-btn:hover {
+    background-color: rgba(255, 82, 82, 0.1) !important;
+  }
+}
+
+
