@@ -25,8 +25,8 @@ userApp.put('/comment/:articleId', expressAsyncHandler(async (req, res) => {
 
 
 userApp.get('/articles',requireAuth({signInUrl:"unauthorized"}) ,expressAsyncHandler(async(req,res)=>{
-    const ArticleList=await Article.find({isArticleActive:true});
-    res.status(200).send({ message: "articles", payload: ArticleList })
+     const ArticleList=await Article.find({isArticleActive:true});
+      res.status(200).send({ message: "articles", payload: ArticleList })
 }))
 
 userApp.get('/unauthorized',(req,res)=>{

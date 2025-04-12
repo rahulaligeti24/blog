@@ -2,12 +2,17 @@ const exp = require("express");
 const adminApp = exp.Router();
 const UserAuthor = require("../models/userAuthorModel");
 const expressAsyncHandler = require("express-async-handler");
+const Article =require('../models/articleModel')
+const {requireAuth}= require('@clerk/express')
+ 
 require("dotenv").config();
 
 adminApp.use(exp.json());
 
 const isPermanentAdmin = async (email) => {
+  
   return email === process.env.ADMIN_EMAIL;
+ 
 };
 
 // POST: Verify or create permanent admin
@@ -18,7 +23,7 @@ adminApp.post(
     const isAdminEmail = await isPermanentAdmin(newAdmin.email);
 
     if (!isAdminEmail) {
-      return res.status(403).json({ message: "Unauthorized. Not a permanent admin." });
+      return res.status(403).json({ message: "Invalid role" });
     }
 
     const userInDb = await UserAuthor.findOne({ email: newAdmin.email });
@@ -39,34 +44,10 @@ adminApp.post(
   })
 );
 
-// Promote a user to admin (only allowed by permanent admin)
-adminApp.put(
-  "/make-admin/:email",
-  expressAsyncHandler(async (req, res) => {
-    const { requesterEmail } = req.body;
-    const targetEmail = req.params.email;
-
-    if (!(await isPermanentAdmin(requesterEmail))) {
-      return res.status(403).json({ message: "Unauthorized to promote admin." });
-    }
-
-    const updatedUser = await UserAuthor.findOneAndUpdate(
-      { email: targetEmail },
-      { role: "admin" },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    res.status(200).json({ message: "User promoted to admin", payload: updatedUser });
-  })
-);
 
 // Get users (only if permanent admin)
 adminApp.get(
-  "/users",
+  "/users",requireAuth({signInUrl:"unauthorized"}),
   expressAsyncHandler(async (req, res) => {
     const { email } = req.query;
     if (!(await isPermanentAdmin(email))) {
@@ -79,7 +60,7 @@ adminApp.get(
 
 // Get authors (only if permanent admin)
 adminApp.get(
-  "/authors",
+  "/authors",requireAuth({signInUrl:"unauthorized"}),
   expressAsyncHandler(async (req, res) => {
     const { email } = req.query;
     if (!(await isPermanentAdmin(email))) {
@@ -92,7 +73,7 @@ adminApp.get(
 
 // Block/unblock user or author
 adminApp.put(
-  "/update-status/:email",
+  "/update-status/:email",requireAuth({signInUrl:"unauthorized"}),
   expressAsyncHandler(async (req, res) => {
     const { email } = req.params;
     const { isActive, adminEmail } = req.body;
@@ -115,4 +96,6 @@ adminApp.put(
   })
 );
 
+
+ 
 module.exports = adminApp;

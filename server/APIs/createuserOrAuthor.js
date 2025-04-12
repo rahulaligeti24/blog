@@ -5,7 +5,7 @@ async function createUserOrAuthor(req,res){
     const newUserAuthor=req.body;
     //find user by emil id 
    const userInDb  =  await UserAuthor.findOne({email:newUserAuthor.email})
-////////if user or author existed
+ 
 if(userInDb!==null){
     if(newUserAuthor.role===userInDb.role){
           res.status(200).send({message:newUserAuthor.role,payload:userInDb})

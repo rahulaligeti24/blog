@@ -1,5 +1,5 @@
 .navbar {
-  background-color: #121212;
+  background-color:#141413;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
@@ -28,7 +28,7 @@
 
 .brand-icon {
   color: #f0c14b;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-right: 0.5rem;
 }
 
@@ -63,7 +63,7 @@
 .sign-in-btn {
   color: #ffffff;
   padding: 0.5rem 1rem;
-  border-radius:13px;
+  border-radius:25px;
   border: 0.5px solid #4a90e2;
 }
 
@@ -71,7 +71,7 @@
   background-color: #4a90e2;
   color: white;
   padding: 0.5rem 1rem;
-  border-radius:13px;
+  border-radius:25px;
   border: none;
   transition: background-color 0.3s;
 }
@@ -341,6 +341,272 @@
   
   .sign-out-btn:hover {
     background-color: rgba(255, 82, 82, 0.1) !important;
+  }
+}
+
+
+
+ 
+ 
+/* Remove borders and background on mobile view */
+@media (max-width: 991px) {
+  .mobile-no-border {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  /* If your buttons have any other border-related properties: */
+  .mobile-no-border {
+    border-radius: 0 !important;
+    outline: none !important;
+  }
+  
+  /* Remove background color for sign-up button specifically */
+  .sign-up-btn {
+    background-color: transparent !important;
+    color: inherit !important; /* Adjust text color if needed */
+  }
+  
+  /* Add any other styling needed for mobile buttons */
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .auth-buttons .nav-item {
+    margin: 5px 0;
+    text-align: center;
+    padding: 10px;
+  }
+}
+
+/* Add these styles to your existing Header.css file */
+/* Add these styles to your existing Header.css file */
+ 
+/* Avatar Circle for users without profile images */
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #3d7c1e;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #f0c14b;
+}
+
+/* Profile Images */
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 60%;
+  object-fit: cover;
+  border: 2px solid #f0c14b; /* Keep the original blue border */
+  cursor: pointer;
+}
+
+/* Keep original sign-out button styling */
+.sign-out-btn {
+  background: none;
+  border: none;
+  color: #ff5252;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.sign-out-btn:hover {
+  background-color: rgba(255, 82, 82, 0.1);
+}
+
+/* Profile Details Panel */
+.profile-details-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 350px;
+  height: 100vh;
+  background-color: #1a1a1a;
+  z-index: 1100;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  color: #e0e0e0;
+}
+
+.profile-details-panel.open {
+  right: 0;
+}
+
+.profile-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-details-header h2 {
+  margin: 0;
+  font-size: 22px;
+  color:rgb(99, 183, 213); /* Gold color for "Profile Details" */
+  font-weight: 500;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.profile-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 15px;
+}
+
+.profile-details-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f0c14b;
+}
+
+.profile-details-avatar-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #3d7c1e;
+  border: 3px solid #f0c14b;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 48px;
+}
+
+.profile-details-name {
+  text-align: center;
+  margin: 10px 0 30px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.profile-details-info {
+  padding: 0 20px;
+}
+
+.info-item {
+  margin-bottom: 20px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.info-item p {
+  margin: 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.sign-out-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: rgba(255, 82, 82, 0.15);
+  color: #ff5252;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  margin: 30px 20px 0;
+  width: calc(100% - 40px);
+  transition: background-color 0.3s;
+}
+
+.sign-out-button:hover {
+  background-color: rgba(255, 82, 82, 0.25);
+}
+
+.profile-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-details-panel {
+    width: 300px;
+  }
+  
+  /* Mobile fixes for navbar */
+  .user-profile-nav {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .sign-out-btn {
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+/* Add these new styles to your existing Header.css file */
+
+/* Profile role styling in off-canvas panel */
+.profile-details-role {
+  display: flex;
+  justify-content: center;
+  margin: -10px 0 20px;
+}
+
+.profile-role-badge {
+  background-color: #4a90e2;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Ensure the badge stands out better */
+@media (max-width: 768px) {
+  .profile-role-badge {
+    background-color: #4a90e2 !important;
+    color: white !important;
   }
 }
 

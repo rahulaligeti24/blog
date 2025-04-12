@@ -3,7 +3,7 @@ import { userAuthorContextObj } from '../../contexts/UserAuthorContext'
 import { useUser } from '@clerk/clerk-react'
 import axios from 'axios'
 import { useNavigate, Link } from 'react-router-dom'
-import { FaPenAlt, FaBookReader,FaLock, FaFolderOpen } from 'react-icons/fa'
+import { FaPenAlt, FaBookReader, FaLock, FaFolderOpen } from 'react-icons/fa'
 import { SiReact, SiNodedotjs, SiExpress, SiMongodb, SiBootstrap, SiGithub } from 'react-icons/si'
 import { RiAdminFill } from 'react-icons/ri'
 import './Home.css'
@@ -13,11 +13,28 @@ function Home() {
   const { isSignedIn, user, isLoaded } = useUser()
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [animateHero, setAnimateHero] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("");
  
   async function onSelectRole(e) {
     // Clear error property
     setError('')
-    const selectedRole = e.target.value;
+    const role = e.target.value;
+    setSelectedRole(role);
+    
+    // Add animation to selection
+    const label = document.querySelector(`label[for="${role}"]`);
+    if (label) {
+      label.classList.add('selected-role-animation');
+      setTimeout(() => {
+        processRoleSelection(role);
+      }, 800); // Wait for animation to complete
+    } else {
+      processRoleSelection(role);
+    }
+  }
+  
+  const processRoleSelection = async (selectedRole) => {
     currentUser.role = selectedRole;
     let res = null;
     try {
@@ -76,8 +93,12 @@ function Home() {
         }
       }
     } catch (err) {
-      console.log("err is ", err);
-      setError(err.message);
+      if (err.response && err.response.data.message) {
+        setError(err.response.data.message);  // Show the actual backend message
+    } else {
+        setError("Something went wrong. Please try again.");
+    }
+
     }
   }
 
@@ -104,6 +125,22 @@ function Home() {
         console.log("Error parsing saved user:", e);
       }
     }
+    
+    // Start animations when component mounts - only for hero section
+    setTimeout(() => setAnimateHero(true), 300);
+    
+    // Handle scroll animation for the hero section
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const heroContent = document.querySelector('.hero-content');
+      if (heroContent && scrollPosition < 300) {
+        heroContent.style.opacity = 1 - (scrollPosition / 400);
+        heroContent.style.transform = `translateY(${scrollPosition * 0.2}px)`;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
@@ -134,19 +171,195 @@ function Home() {
 
   return  (
     <div className="responsive-container">
+      {/* Add animation styles - removed animations for features and tech stack */}
+      <style>
+        {`
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(30px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes fadeInLeft {
+            from {
+              opacity: 0;
+              transform: translateX(-50px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes fadeInRight {
+            from {
+              opacity: 0;
+              transform: translateX(50px);
+            }
+            to {
+              opacity: 1;
+              transform: translateX(0);
+            }
+          }
+          
+          @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+              transform: translateY(0);
+            }
+            40% {
+              transform: translateY(-10px);
+            }
+            60% {
+              transform: translateY(-5px);
+            }
+          }
+          
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+          
+          @keyframes float {
+            0% {
+              transform: translateY(0px);
+            }
+            50% {
+              transform: translateY(-10px);
+            }
+            100% {
+              transform: translateY(0px);
+            }
+          }
+          
+          @keyframes spin {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+          
+          @keyframes glow {
+            0% {
+              box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+            }
+            50% {
+              box-shadow: 0 0 20px rgba(74, 144, 226, 0.8);
+            }
+            100% {
+              box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+            }
+          }
+          
+          .hero-content {
+            transition: opacity 0.3s, transform 0.3s;
+          }
+          
+          .hero-animation {
+            opacity: 0;
+            animation: fadeInUp 1s forwards;
+          }
+          
+          .scroll-arrow {
+            animation: bounce 2s infinite;
+          }
+          
+          .get-started-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+          }
+          
+          .get-started-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 7px 14px rgba(0,0,0,0.2);
+          }
+          
+          .get-started-btn:active {
+            transform: translateY(1px);
+          }
+          
+          .get-started-btn::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s;
+          }
+          
+          .get-started-btn:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+          }
+          
+          .brand-logo {
+            display: inline-block;
+          }
+          
+          .logo-icon {
+            display: inline-block;
+            animation: spin 10s linear infinite;
+          }
+          
+          .selected-role-animation {
+            animation: glow 1.5s;
+          }
+          
+          .role-option {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          
+          .role-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+          }
+          
+          .user-card {
+            animation: fadeInUp 0.8s;
+          }
+          
+          .user-image {
+            animation: float 5s ease-in-out infinite;
+          }
+          
+          .role-selection-container {
+            animation: fadeInUp 0.8s;
+          }
+        `}
+      </style>
+
       {isSignedIn === false && (
         <>
-          {/* Hero Section - Enhanced for Responsiveness */}
+          {/* Hero Section - Animation Kept */}
           <div className="hero-section">
-            <div className="hero-content container">
-              <div className="brand-logo">
-                <span className="logo-icon">&#10022;</span> <span className="logo-text">InspireHub</span>
-              </div>
-              <h1 className="hero-title">Where ideas flourish and connections thrive</h1>
-              <p className="hero-subtitle">Discover a world where knowledge meets creativity.</p>
+            <div className={`hero-content container ${animateHero ? 'hero-animation' : ''}`}>
+             
+              <h1 className="hero-title">  Explore, write, and connect with a community of passionate authors.</h1>
+               <div className='d-flex ' style={{marginLeft:'60px',marginRight:'60px'}}>
+               <p className="hero-subtitle"> Connect with talented writers, follow their work, and engage in meaningful discussions by commenting and sharing your thoughts.
+
+                 </p>
+               </div>
                
               <div className="cta-buttons">
-                <Link to="/signup" className="btn-primary get-started-btn">Get Started</Link>
+                <Link to="/signup" className="btn-primary get-started-btn ">Get Started</Link>
               </div>
             </div>
             <div className="scroll-indicator">
@@ -155,7 +368,7 @@ function Home() {
             </div>
           </div>
 
-          {/* Features Section - Enhanced for Responsiveness */}
+          {/* Features Section - Animation Removed */}
           <div className="features-section">
             <div className="container">
               <h2 className="section-title">Platform Features</h2>
@@ -198,41 +411,30 @@ function Home() {
             </div>
           </div>
 
-          {/* Tech Stack Section - Enhanced for Responsiveness */}
+          {/* Tech Stack Section - Animation Removed */}
           <div className="tech-stack-section">
             <div className="container">
               <h2 className="section-title">Our Tech Stack</h2>
               <p className="section-subtitle">Built with modern technologies for performance, scalability, and reliability</p>
               
               <div className="tech-icons-container">
-                <div className="tech-icon">
-                  <SiReact className="icon-symbol" />
-                  <span className="icon-name">React</span>
-                </div>
-                <div className="tech-icon">
-                  <SiNodedotjs className="icon-symbol" />
-                  <span className="icon-name">Node.js</span>
-                </div>
-                <div className="tech-icon">
-                  <SiExpress className="icon-symbol" />
-                  <span className="icon-name">Express</span>
-                </div>
-                <div className="tech-icon">
-                  <SiMongodb className="icon-symbol" />
-                  <span className="icon-name">MongoDB</span>
-                </div>
-                <div className="tech-icon">
-                  <SiBootstrap className="icon-symbol" />
-                  <span className="icon-name">Bootstrap</span>
-                </div>
-                <div className="tech-icon">
-                  <span className="icon-symbol clerk-icon">C</span>
-                  <span className="icon-name">Clerk</span>
-                </div>
-                <div className="tech-icon">
-                  <SiGithub className="icon-symbol" />
-                  <span className="icon-name">GitHub</span>
-                </div>
+                {[
+                  { icon: <SiReact className="icon-symbol" />, name: "React" },
+                  { icon: <SiNodedotjs className="icon-symbol" />, name: "Node.js" },
+                  { icon: <SiExpress className="icon-symbol" />, name: "Express" },
+                  { icon: <SiMongodb className="icon-symbol" />, name: "MongoDB" },
+                  { icon: <SiBootstrap className="icon-symbol" />, name: "Bootstrap" },
+                  { icon: <span className="icon-symbol clerk-icon">C</span>, name: "Clerk" },
+                  { icon: <SiGithub className="icon-symbol" />, name: "GitHub" }
+                ].map((tech, index) => (
+                  <div 
+                    key={tech.name}
+                    className="tech-icon"
+                  >
+                    {tech.icon}
+                    <span className="icon-name">{tech.name}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -242,10 +444,10 @@ function Home() {
             <div className="container">
               <div className="footer-sections ">
                 <div className="footer-section ">
-                  <h3 className="footer-title">InSpireHub</h3>
+                  <h3 className="footer-title">InspireHub</h3>
                   <p className="footer-description text-secondary">
-                    A platform for writers, readers,<br className="d-none d-md-block" />
-                    and knowledge seekers to connect, share,<br className="d-none d-md-block" />
+                    A platform for writers, readers,and<br className="d-none d-md-block" />
+                     knowledge seekers to connect, share,<br className="d-none d-md-block" />
                     and grow together.
                   </p>
                 </div>
@@ -262,22 +464,22 @@ function Home() {
                   <h3 className="footer-title">Contact</h3>
                   <p className="contact-email text-secondary">aligetirahul24@gmail.com</p>
                   <div className="social-icons d-flex gap-2">
-                    <a href="#" className="social-icon github-icon"><SiGithub /></a>
-                    <a href="#" className="social-icon instagram-icon">In</a>
-                    <a href="#" className="social-icon linkedin-icon">Li</a>
+                    <a href="https://github.com/rahulaligeti24" className="social-icon github-icon"><SiGithub /></a>
+                    <a href="https://www.instagram.com/rahul_aligeti24/" className="social-icon instagram-icon">In</a>
+                    <a href="https://www.linkedin.com/in/rahul-aligeti-1ab6ab308/" className="social-icon linkedin-icon">Li</a>
                   </div>
                 </div>
               </div>
               <hr className='bg-secondary mt-5'/>
               <div className="footer-bottom">
-                <p className="copyright text-center">© 2025 InSpireHub. All rights reserved</p>
+                <p className="copyright text-seconadry ">© 2025 InSpireHub. All rights reserved.Designed by Rahul Aligeti</p>
               </div>
             </div>
           </footer>
         </>
       )}
 
-      {/* Signed In View - Role Selection - Enhanced for Responsiveness */}
+      {/* Signed In View - Role Selection - Animation Kept */}
       {isSignedIn === true && (
         <div className="container py-4">
           <div className="role-selection-container">
@@ -294,7 +496,7 @@ function Home() {
               )}
               
               <div className="role-options">
-                <div className="role-option">
+                <div className={`role-option ${selectedRole === "author" ? "selected-role" : ""}`}>
                   <input type="radio" name="role" id="author" value="author" className="role-input" onChange={onSelectRole} />
                   <label htmlFor="author" className="role-label">
                     <FaPenAlt className="role-icon" />
@@ -303,7 +505,7 @@ function Home() {
                   </label>
                 </div>
                 
-                <div className="role-option">
+                <div className={`role-option ${selectedRole === "user" ? "selected-role" : ""}`}>
                   <input type="radio" name="role" id="user" value="user" className="role-input" onChange={onSelectRole} />
                   <label htmlFor="user" className="role-label">
                     <FaBookReader className="role-icon" />
@@ -312,7 +514,7 @@ function Home() {
                   </label>
                 </div>
                 
-                <div className="role-option">
+                <div className={`role-option ${selectedRole === "admin" ? "selected-role" : ""}`}>
                   <input type="radio" name="role" id="admin" value="admin" className="role-input" onChange={onSelectRole} />
                   <label htmlFor="admin" className="role-label">
                     <RiAdminFill className="role-icon" />

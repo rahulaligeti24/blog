@@ -13,9 +13,6 @@ if (!PUBLISHABLE_KEY) {
 
 
 
-
-
-
 function RootLayout() {
   return (
     <ClerkProvider

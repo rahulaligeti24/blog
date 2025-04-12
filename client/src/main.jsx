@@ -88,7 +88,7 @@ const browserObj=createBrowserRouter([
             element:<Users/>
           },
           {
-            path:'articleId',
+            path:':articleId',
             element:<ArticleByID/>
 
           },

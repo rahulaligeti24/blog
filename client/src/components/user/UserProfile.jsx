@@ -1,13 +1,46 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { IoFilterOutline } from "react-icons/io5";
 import { BiSearchAlt } from "react-icons/bi";
+import { IoArrowBackOutline } from "react-icons/io5";
 
 function UserProfile() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isReadingArticle, setIsReadingArticle] = useState(false);
+  const [searchFocused, setSearchFocused] = useState(false);
   
+  // Add global style for dropdown options
+  useEffect(() => {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = `
+      select option {
+        background-color: #1a1a1a !important;
+        color: white !important;
+      }
+    `;
+    document.head.appendChild(styleElement);
+    
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+  
+  useEffect(() => {
+    if (
+      location.pathname.includes('/article/') ||
+      location.pathname.match(/\/articles\/\d+/) || 
+      location.pathname.match(/\/\d+$/) ||   
+      location.pathname.includes('/read-more')
+    ) {
+      setIsReadingArticle(true);
+    } else {
+      setIsReadingArticle(false);
+    }
+  }, [location.pathname]);
+
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       navigate('articles', {
@@ -28,25 +61,51 @@ function UserProfile() {
       }
     });
   };
+  
+  const handleBackClick = () => {
+    navigate('articles', { replace: true });
+  };
 
   return (
-    <div className="user-profile mt-5 container">
-      <div className="mb-4 px-3">
-        <div className="row align-items-center">
+    <div className="user-profile mt-4 container">
+      {isReadingArticle ? (
+        // Show back button when reading an article
+        <div className="mb-4 px-2">
+          <div className="row">
+            <div className="col-12">
+              <button 
+                className="btn btn-outline-warning d-flex align-items-center"
+                onClick={handleBackClick}
+              >
+                <IoArrowBackOutline size={18} className="me-2" />
+                Back to Articles
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        // Show filter options when not reading an article
+        <div className="row px-2 mb-0 g-3">
           {/* Category filter */}
-          <div className="col-md-4 mb-3 mb-md-0">
-            <div className="d-flex align-items-center">
-              <IoFilterOutline className='text-warning me-2'/>
+          <div className="col-12 col-sm-5">
+            <div className="input-group align-items-center" style={{
+              backgroundColor: "#1a1a1a",
+              border: "1px solid #444",
+              borderRadius: "8px",
+              height: "42px"
+            }}>
+              <span className="input-group-text bg-transparent border-0">
+                <IoFilterOutline className="text-warning" size={20} />
+              </span>
               <select
                 id="category"
-                className="form-select"
+                className="form-select bg-transparent text-secondary border-0 shadow-none"
                 value={selectedCategory}
                 onChange={handleCategoryChange}
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  color: "white",
-                  border: "1px solid #444",
-                  borderRadius: "8px"
+                  height: "100%",
+                  paddingLeft: "0",
+                  backgroundColor: "#1a1a1a"
                 }}
               >
                 <option value="all">All Categories</option>
@@ -58,35 +117,36 @@ function UserProfile() {
           </div>
           
           {/* Search bar */}
-          <div className="col-md-5 mb-3 mb-md-0">
-            <div className="d-flex align-items-center">
-              <BiSearchAlt className='text-warning me-2' size={20}/>
+          <div className="col-12 col-sm-7">
+            <div className="input-group align-items-center" style={{
+              backgroundColor: "#1a1a1a",
+              border: searchFocused ? "1px solid #ffc107" : "1px solid #444",
+              borderRadius: "8px",
+              height: "42px"
+            }}>
+              <span className="input-group-text bg-transparent border-0">
+                <BiSearchAlt className="text-warning" size={20} />
+              </span>
               <input
                 type="text"
-                className="form-control"
+                className="form-control bg-transparent text-white border-0 shadow-none"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyUp={handleSearch}
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
                 style={{
-                  backgroundColor: "#1a1a1a",
-                  color: "white",
-                  border: "1px solid #444",
-                  borderRadius: "8px"
+                  height: "100%"
                 }}
               />
             </div>
           </div>
         </div>
-      </div>
-
-       {/* <ul className="d-flex justify-content-around list-unstyled mt-4 fs-3">
-        <li className='nav-item'>
-          <NavLink to='articles' className='nav-link bg-light'>Articles</NavLink>
-        </li>
-      </ul>  */}
+      )}
       
-      <div className="mt-5">
+      <hr className="mt-3" />
+      <div className="mt-4">
         <Outlet />
       </div>
     </div>

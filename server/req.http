@@ -135,10 +135,10 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:3000/admin-api/users
+GET http://localhost:3000/user-api/articles
 
 
 ###
-GET http://localhost:3000/admin-api/authors
+GET http://localhost:3000/admin-api/article/1743333415196
 
 

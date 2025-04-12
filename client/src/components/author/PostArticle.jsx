@@ -3,6 +3,11 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { userAuthorContextObj } from "../../contexts/UserAuthorContext";
 import { useNavigate } from "react-router-dom";
+// Import React Icons with correct paths
+import { BsCardHeading } from "react-icons/bs"; // Using BsCardHeading instead of BiTitle
+import { IoMdListBox } from "react-icons/io";
+import { MdOutlineArticle, MdOutlinePostAdd } from "react-icons/md";
+import { FaSave } from "react-icons/fa";
 
 function PostArticle() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -58,27 +63,28 @@ function PostArticle() {
       <div className="row justify-content-center mt-5">
         <div className="col-lg-8 col-md-8 col-sm-10">
           <div className="card shadow" style={{ 
-            backgroundColor: "black", 
+            backgroundColor: "#141413", 
             borderRadius: "20px", 
             border: "3px solid",
-
             overflow: "hidden"
           }}>
             <div className="card-title text-center" style={{ 
               borderBottom: "2px solid goldenrod",
               background: "linear-gradient(45deg, rgba(25,25,25,1), rgba(40,40,40,1))"
             }}>
-              <h2 className="p-3" style={{ 
+              <h2 className="p-3 d-flex align-items-center justify-content-center" style={{ 
                 color: "goldenrod",
                 textShadow: "0 0 5px rgba(218,165,32,0.5)"
               }}>
+                <MdOutlineArticle size={30} className="me-2" />
                 Write an Article
               </h2>
             </div>
-            <div className="card-body" style={{ backgroundColor: "black", color: "white", padding: "30px" }}>
+            <div className="card-body" style={{ backgroundColor: "#141413", color: "white", padding: "30px" }}>
               <form onSubmit={handleSubmit(postArticle)}>
                 <div className="mb-4">
-                  <label htmlFor="title" className="form-label" style={{ color: "goldenrod" }}>
+                  <label htmlFor="title" className="form-label d-flex align-items-center" style={{ color: "goldenrod" }}>
+                    <BsCardHeading size={20} className="me-2" />
                     Title
                   </label>
                   <input
@@ -86,13 +92,15 @@ function PostArticle() {
                     className="form-control"
                     id="title"
                     style={inputStyle}
+                    placeholder="Enter article title"
                     {...register("title", { required: "Title is required" })}
                   />
                   {errors.title && <p className="text-danger">{errors.title.message}</p>}
                 </div>
 
                 <div className="mb-4">
-                  <label htmlFor="category" className="form-label" style={{ color: "goldenrod" }}>
+                  <label htmlFor="category" className="form-label d-flex align-items-center" style={{ color: "goldenrod" }}>
+                    <IoMdListBox size={20} className="me-2" />
                     Select a category
                   </label>
                   <select
@@ -111,7 +119,8 @@ function PostArticle() {
                 </div>
 
                 <div className="mb-4">
-                  <label htmlFor="content" className="form-label" style={{ color: "goldenrod" }}>
+                  <label htmlFor="content" className="form-label d-flex align-items-center" style={{ color: "goldenrod" }}>
+                    <MdOutlinePostAdd size={22} className="me-2" />
                     Content
                   </label>
                   <textarea
@@ -120,21 +129,32 @@ function PostArticle() {
                     id="content"
                     style={inputStyle}
                     rows="10"
+                    placeholder="Write your article content here..."
                   ></textarea>
                   {errors.content && <p className="text-danger">{errors.content.message}</p>}
                 </div>
 
                 <div className="text-end">
-                  <button type="submit" className="btn" style={{ 
-                    background: "linear-gradient(45deg, goldenrod, blue)",
+                  <button type="submit" className="btn d-flex align-items-center ms-auto" style={{ 
+                    background: "goldenrod",
                     color: "white",
                     fontWeight: "bold",
                     padding: "10px 25px",
                     borderRadius: "8px",
                     border: "none",
-                    boxShadow: "0 4px 8px rgba(0,0,0,0.2)"
+                    boxShadow: "0 0 5px rgba(218,165,32,0.5)",
+                    transition: "all 0.3s ease"
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.background = "#b8860b";
+                    e.currentTarget.style.boxShadow = "0 0 10px rgba(218,165,32,0.8)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.background = "goldenrod";
+                    e.currentTarget.style.boxShadow = "0 0 5px rgba(218,165,32,0.5)";
                   }}>
-                    Post
+                    <FaSave size={18} className="me-2" />
+                    Post Article
                   </button>
                 </div>
               </form>
