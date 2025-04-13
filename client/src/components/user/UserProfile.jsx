@@ -74,7 +74,7 @@ function UserProfile() {
           <div className="row">
             <div className="col-12">
               <button 
-                className="btn btn-outline-warning d-flex align-items-center"
+                className="btn  text-warning d-flex align-items-center"
                 onClick={handleBackClick}
               >
                 <IoArrowBackOutline size={18} className="me-2" />

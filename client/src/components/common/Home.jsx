@@ -352,10 +352,10 @@ function Home() {
             <div className={`hero-content container ${animateHero ? 'hero-animation' : ''}`}>
              
               <h1 className="hero-title">  Explore, write, and connect with a community of passionate authors.</h1>
-               <div className='d-flex ' style={{marginLeft:'60px',marginRight:'60px'}}>
-               <p className="hero-subtitle"> Connect with talented writers, follow their work, and engage in meaningful discussions by commenting and sharing your thoughts.
+               <div>
+               <p className="hero-subtitle"> Connect with talented writers, follow their work, and engage in meaningful <br />discussions by commenting and sharing your thoughts.
 
-                 </p>
+                   </p>
                </div>
                
               <div className="cta-buttons">

@@ -605,23 +605,41 @@ a {
   color: rgba(255, 255, 255, 0.9); /* Lighter color when selected for better readability */
 }
 
+ 
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .role-selection-container {
-    padding: 30px 20px;
-    margin: 40px auto;
+    margin: 20px auto; /* Reduced margin */
+    padding: 0; /* Remove padding completely */
+    width: 90%; /* Make it slightly less than full width */
+    max-width: 400px; /* Limit maximum width */
   }
   
   .role-options {
     flex-direction: column;
     align-items: center;
+    padding: 0 5px; /* Reduce padding here */
+    width: 100%;
   }
   
   .role-option {
-    width: 100%;
-    max-width: 250px;
+    width: 100%; /* Full width */
+    max-width: 200px; /* Increase slightly for better fit */
+  }
+  
+  .role-label {
+    width: 100%; /* Ensure the label takes full width */
+  }
+  
+  .user-card {
+    width: 100%; /* Ensure user card takes full width */
   }
 }
+
+
+
+
 
 /* Animation for role selection - Blue glow pulse */
 @keyframes pulseAnimation {
@@ -851,56 +869,51 @@ a {
 /* 
 
 /* Add these styles to your CSS file */
-
 /* Base styling for CTA buttons container */
 .cta-buttons {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
+  width: 100%;
 }
 
-/* Base styling for the Get Started button */
-.btn-primary.get-started-btn {
-  background-color: #4a90e2;
+/* Styling for the Get Started button */
+.get-started-btn {
+  background-color: #4a90e2; /* Bright blue color */
   color: white;
-  padding: 0.75rem 1.5rem;
- 
-  font-weight: 600;
+  font-size: 1.1rem; /* Desktop size */
+  font-weight: 500;
+  padding: 1rem 2rem; /* Desktop padding */
+  border-radius: 8px;
+  border: none;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: inline-block;
   text-align: center;
+  display: block;
+  cursor: pointer;
+  margin: 0 auto; /* Center the button */
 }
 
-.btn-primary.get-started-btn:hover {
+.get-started-btn:hover {
   background-color: #3a80d2;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Mobile-specific styles */
-@media (max-width: 576px) {
-  .btn-primary.get-started-btn {
-    padding: 0.6rem 1.25rem;
-    font-size: 0.9rem;
-    max-width: 200px;
-    width: auto;
-    margin: 0 auto;
-  }
-  
-  .cta-buttons {
-    width: 100%;
-    padding: 0 1rem;
+/* Mobile styling to match the image you provided */
+@media (max-width: 768px) {
+  .get-started-btn {
+    font-size: 1rem; /* Mobile font size */
+    padding: 0.75rem 1.5rem; /* Less padding on mobile */
+    width: auto; /* Auto width on mobile */
+    max-width: 150px; /* Maximum width to match image */
+    border-radius: 6px; /* Slightly smaller radius on mobile */
   }
 }
 
-/* Small mobile screens */
+/* Small mobile devices - closer to the image shown */
 @media (max-width: 480px) {
-  .btn-primary.get-started-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    max-width: 160px;
+  .get-started-btn {
+    font-size: 1.1rem;
+    padding: 0.9rem 0.7rem;
+     /* Fixed width to match image exactly */
   }
-} 
+}
